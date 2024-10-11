@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { axiosInstance } from "@/app/utils/api";
-import { createApi, BaseQueryFn } from "@reduxjs/toolkit/query/react";
-import { AxiosError } from "axios";
+import { axiosInstance } from '@/app/utils/api';
+import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
+import { AxiosError } from 'axios';
 
 interface BaseQueryParams {
   url: string;
-  method: "get" | "post" | "put" | "delete" | "patch";
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch';
   data?: any;
   params?: any;
   headers?: Record<string, any>;
@@ -20,35 +20,29 @@ interface ApiError {
   data: unknown;
 }
 
-const executeApi = async ({
-  url,
-  method,
-  data,
-  params,
-  headers,
-}: BaseQueryParams) => {
+const executeApi = async ({ url, method, data, params, headers }: BaseQueryParams) => {
   switch (method) {
-    case "get":
+    case 'get':
       return await axiosInstance.get(url, {
         params,
         headers,
       });
-    case "post":
+    case 'post':
       return await axiosInstance.post(url, data, {
         params,
         headers,
       });
-    case "put":
+    case 'put':
       return await axiosInstance.put(url, data, {
         params,
         headers,
       });
-    case "patch":
+    case 'patch':
       return await axiosInstance.patch(url, data, {
         params,
         headers,
       });
-    case "delete":
+    case 'delete':
       return await axiosInstance.delete(url, {
         params,
         headers,
@@ -80,7 +74,7 @@ const axiosBaseQuery: BaseQueryFn<
 };
 
 const apiService = createApi({
-  reducerPath: "api",
+  reducerPath: 'api',
   baseQuery: axiosBaseQuery,
   endpoints: () => ({}),
 });
