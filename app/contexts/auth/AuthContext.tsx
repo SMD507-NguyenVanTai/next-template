@@ -18,17 +18,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authLocal] = useLocalStorage(LOCAL_STORAGE_KEY.AUTH, '');
-  const [token, setToken] = useLocalStorage(LOCAL_STORAGE_KEY.TOKEN, '');
-  const [refreshToken, setRefreshToken] = useLocalStorage(
-    LOCAL_STORAGE_KEY.REFRESH_TOKEN,
-    '',
-  );
+  const [, setToken] = useLocalStorage(LOCAL_STORAGE_KEY.TOKEN, '');
+  const [, setRefreshToken] = useLocalStorage(LOCAL_STORAGE_KEY.REFRESH_TOKEN, '');
 
   const [loginMutation] = useLoginMutation();
 
   const { data: user } = useGetProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
-    skip: !Boolean(authLocal),
+    skip: !authLocal,
   });
 
   const login = async (credential: ILoginRequest) => {
